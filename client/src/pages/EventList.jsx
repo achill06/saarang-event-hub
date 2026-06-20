@@ -29,11 +29,17 @@ const EventList = () => {
     : events.filter(e => e.category?.toLowerCase() === filter.toLowerCase());
 
   const getCategoryStyles = (category) => {
-    const cat = category?.toLowerCase() || 'cultural';
+    const cat = category?.toLowerCase().replace(/\s+/g, '') || 'cultural';
     switch (cat) {
       case 'dance': return { bar: 'bar-teal', badge: 'cat-dance' };
       case 'lecture': return { bar: 'bar-gold', badge: 'cat-lecture' };
       case 'music': return { bar: 'bar-rose', badge: 'cat-music' };
+      case 'finearts': return { bar: 'bar-finearts', badge: 'cat-finearts' };
+      case 'literary': return { bar: 'bar-literary', badge: 'cat-literary' };
+      case 'dramatics': return { bar: 'bar-dramatics', badge: 'cat-dramatics' };
+      case 'gaming': return { bar: 'bar-gaming', badge: 'cat-gaming' };
+      case 'workshops': return { bar: 'bar-workshops', badge: 'cat-workshops' };
+      case 'proshows': return { bar: 'bar-proshows', badge: 'cat-proshows' };
       default: return { bar: 'bar-crimson', badge: 'cat-cultural' };
     }
   };
@@ -65,7 +71,10 @@ const EventList = () => {
       <div className="sec-bar" id="events-section">
         <span className="sec-name">Upcoming Events</span>
         <div className="filters">
-          {['All', 'Cultural', 'Dance', 'Music', 'Lecture'].map(f => (
+          {[
+            'All', 'Cultural', 'Dance', 'Music', 'Lecture', 
+            'Fine Arts', 'Literary', 'Dramatics', 'Gaming', 'Workshops', 'Proshows'
+          ].map(f => (
             <button 
               key={f}
               className={`filter ${filter === f ? 'active' : ''}`}

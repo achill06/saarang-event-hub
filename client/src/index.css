@@ -344,6 +344,7 @@ input, textarea {
 .filters {
   display: flex;
   gap: 4px;
+  flex-wrap: wrap;
 }
 
 .filter {
@@ -407,6 +408,12 @@ input, textarea {
 .bar-gold { background: var(--gold); }
 .bar-green { background: var(--green); }
 .bar-rose { background: var(--rose); }
+.bar-finearts { background: #8a4baf; }
+.bar-literary { background: #2d6050; }
+.bar-dramatics { background: #b45309; }
+.bar-gaming { background: #0369a1; }
+.bar-workshops { background: #475569; }
+.bar-proshows { background: #1c0a08; }
 
 .ecard-body {
   padding: 14px;
@@ -472,6 +479,12 @@ input, textarea {
 .cat-dance { color: var(--teal); border-color: rgba(30, 114, 130, 0.3); background: rgba(30, 114, 130, 0.05); }
 .cat-lecture { color: #5a4a00; border-color: rgba(212, 146, 10, 0.4); background: rgba(212, 146, 10, 0.08); }
 .cat-music { color: var(--rose); border-color: rgba(202, 75, 129, 0.3); background: rgba(202, 75, 129, 0.05); }
+.cat-finearts { color: #8a4baf; border-color: rgba(138, 75, 175, 0.3); background: rgba(138, 75, 175, 0.05); }
+.cat-literary { color: #2d6050; border-color: rgba(45, 96, 80, 0.3); background: rgba(45, 96, 80, 0.05); }
+.cat-dramatics { color: #b45309; border-color: rgba(180, 83, 9, 0.3); background: rgba(180, 83, 9, 0.05); }
+.cat-gaming { color: #0369a1; border-color: rgba(3, 105, 161, 0.3); background: rgba(3, 105, 161, 0.05); }
+.cat-workshops { color: #475569; border-color: rgba(71, 85, 105, 0.3); background: rgba(71, 85, 105, 0.05); }
+.cat-proshows { color: #1c0a08; border-color: rgba(28, 10, 8, 0.5); background: rgba(28, 10, 8, 0.08); }
 
 .seats-left {
   font-size: 9px;
