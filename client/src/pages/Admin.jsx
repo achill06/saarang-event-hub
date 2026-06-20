@@ -60,6 +60,12 @@ const AdminAddEvent = () => {
                     <option value="Dance">Dance</option>
                     <option value="Music">Music</option>
                     <option value="Lecture">Lecture</option>
+                    <option value="Fine Arts">Fine Arts</option>
+                    <option value="Literary">Literary</option>
+                    <option value="Dramatics">Dramatics</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Workshops">Workshops</option>
+                    <option value="Proshows">Proshows</option>
                   </select>
                 </div>
               </div>
