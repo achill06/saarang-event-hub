@@ -9,10 +9,10 @@ module.exports = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     const user = await User.findById(decoded.id)
-    if (!user || user.role !== 'admin') {
+    if (!user || !['admin', 'super_admin'].includes(user.role)) {
       return res.status(403).json({ message: 'Admin access only' })
     }
-    req.user = decoded
+    req.user = user 
     next()
   } catch (err) {
     res.status(401).json({ message: 'Invalid token' })

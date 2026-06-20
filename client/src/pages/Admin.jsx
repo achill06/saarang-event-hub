@@ -1,77 +1,105 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import axios from 'axios'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 
 const AdminAddEvent = () => {
-  const { token } = useAuth()
-  const navigate = useNavigate()
+  const { token } = useAuth();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
-    title: '', description: '', date: '', venue: '', capacity: ''
-  })
-  const [message, setMessage] = useState('')
-  const [error, setError]     = useState('')
+    title: '', description: '', date: '', venue: '', capacity: '', category: ''
+  });
+  const [message, setMessage] = useState({ text: '', type: '' });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!token) {
-      navigate('/login')
-      return
-    }
+    e.preventDefault();
+    setMessage({ text: '', type: '' });
+    if (!token) return navigate('/login');
+    
     try {
       await axios.post('https://saarang-event-hub-5c2b.onrender.com/api/events', form, {
         headers: { Authorization: `Bearer ${token}` }
-      })
-      setMessage('Event created successfully!')
-      setError('')
-      setForm({ title: '', description: '', date: '', venue: '', capacity: '' })
+      });
+      setMessage({ text: 'Event created successfully!', type: 'success' });
+      setForm({ title: '', description: '', date: '', venue: '', capacity: '', category: '' });
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to create event')
-      setMessage('')
+      setMessage({ text: err.response?.data?.message || 'Failed to create event', type: 'error' });
     }
-  }
+  };
 
-  if (!token) return <p>You must be logged in to access this page.</p>
+  if (!token) return <div style={{ padding: '40px', textAlign: 'center' }}>You must be logged in.</div>;
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '500px', margin: '0 auto' }}>
-      <h1>Add New Event</h1>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error   && <p style={{ color: 'red'   }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Title</label><br />
-          <input name="title" value={form.title} onChange={handleChange} required style={{ width: '100%' }} />
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Description</label><br />
-          <textarea name="description" value={form.description} onChange={handleChange} required style={{ width: '100%', fontFamily: 'inherit', fontSize: 'inherit' }} />
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Date</label><br />
-          <input name="date" type="date" value={form.date} onChange={handleChange} required style={{ width: '100%' }} />
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Venue</label><br />
-          <input name="venue" value={form.venue} onChange={handleChange} required style={{ width: '100%' }} />
-        </div>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Capacity</label><br />
-          <input name="capacity" type="number" value={form.capacity} onChange={handleChange} required style={{ width: '100%' }} />
-        </div>
-        <button type="submit" style={{ background: 'green', color: 'white', padding: '0.5rem 1rem' }}>
-          Create Event
-        </button>
-        <button type="button" onClick={() => navigate('/')} style={{ marginLeft: '1rem', padding: '0.5rem 1rem' }}>
-          Back to Events
-        </button>
-      </form>
-    </div>
-  )
-}
+    <>
+      <div className="form-section">
+        <div className="form-card">
+          
+          <div className="form-head">
+            <div className="form-head-dot"></div>
+            <span className="form-head-title">Add New Event</span>
+          </div>
+          
+          <div className="form-body">
+            {message.text && <div className={`alert alert-${message.type}`}>{message.text}</div>}
 
-export default AdminAddEvent
+            <form onSubmit={handleSubmit}>
+              <div className="row2">
+                <div className="fg">
+                  <label className="fl">Event Title</label>
+                  <input className="fi" name="title" value={form.title} onChange={handleChange} required />
+                </div>
+                <div className="fg">
+                  <label className="fl">Category</label>
+                  <select className="fi" name="category" value={form.category} onChange={handleChange} required>
+                    <option value="">Select a tag...</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Dance">Dance</option>
+                    <option value="Music">Music</option>
+                    <option value="Lecture">Lecture</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="fg">
+                <label className="fl">Description</label>
+                <textarea className="ta" name="description" value={form.description} onChange={handleChange} required />
+              </div>
+
+              <div className="row2">
+                <div className="fg">
+                  <label className="fl">Date</label>
+                  <input className="fi" type="date" name="date" value={form.date} onChange={handleChange} required />
+                </div>
+                <div className="fg">
+                  <label className="fl">Venue</label>
+                  <input className="fi" name="venue" value={form.venue} onChange={handleChange} required />
+                </div>
+              </div>
+
+              <div className="fg">
+                <label className="fl">Capacity</label>
+                <input className="fi" type="number" name="capacity" value={form.capacity} onChange={handleChange} required style={{ maxWidth: '140px' }} />
+              </div>
+
+              <div className="form-actions">
+                <button type="submit" className="btn btn-primary" style={{ padding: '10px 24px' }}>
+                  Create Event
+                </button>
+                <button type="button" className="btn btn-ghost" onClick={() => navigate('/')} style={{ padding: '10px 18px' }}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default AdminAddEvent;

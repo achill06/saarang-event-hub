@@ -8,17 +8,25 @@ and admins can create events.
 - Backend:  https://saarang-event-hub-5c2b.onrender.com
 
 ## Tech Stack
-- **Backend:** Node.js, Express, MongoDB Atlas, JWT
-- **Frontend:** React (Vite), React Router, Axios
+* **Frontend:** React (Vite), React Router DOM, Axios, CSS3 Variables
+* **Backend:** Node.js, Express.js, MongoDB Atlas (Mongoose), JWT, bcryptjs
 
 ## Architecture
 Frontend (Vercel) → Backend API (Render) → Database (MongoDB Atlas)
 
+## Features
+* **User Authentication:** Secure signup, login, and logout using JSON Web Tokens (JWT).
+* **Role-Based Access Control (RBAC):** Distinct user tiers (`user`, `admin`, `super_admin`) protecting routes on both frontend and backend.
+* **Event Management:** Admins can effortlessly create, edit, and permanently delete events. Includes automated cascading deletes to prevent orphaned registration data.
+* **Live Registration System:** Users can register/unregister. Includes capacity enforcement (full events reject registrations) and duplicate registration prevention at both route and database levels.
+* **Server-Side Validation:** Strict input validation ensuring data integrity (e.g., blocking past-dated events).
+* **Dynamic UI:** A custom, responsive design system built with Vite, React, and pure CSS.
+
 ## Local Setup
 
 ### Prerequisites
-- Node.js installed
-- MongoDB Atlas account (free tier works)
+* [Node.js](https://nodejs.org/) installed
+* A [MongoDB Atlas](https://www.mongodb.com/) account (free tier works perfectly)
 
 ### Backend
 ```bash
@@ -49,19 +57,22 @@ npm run dev
 # App runs on http://localhost:5173
 ```
 
-## API Routes
+## 🛣️ API Routes
 
 | Method | Route | Auth | Description |
 |--------|-------|------|-------------|
-| POST | /api/auth/signup | No | Register user |
-| POST | /api/auth/login | No | Login user |
-| GET | /api/events | No | List all events |
-| GET | /api/events/:id | No | Single event |
-| POST | /api/events/:id/register | User | Register for event |
-| DELETE | /api/events/:id/register | User | Unregister |
-| GET | /api/events/my/registrations | User | My registrations |
-| POST | /api/events | Admin | Create event |
-| PATCH | /api/auth/make-admin/:userId | Admin | Promote user to admin |
+| **POST** | `/api/auth/signup` | No | Register a new user |
+| **POST** | `/api/auth/login` | No | Login user |
+| **GET** | `/api/events` | No | List all events |
+| **GET** | `/api/events/:id` | No | Get single event details |
+| **POST** | `/api/events/:id/register` | User | Register for an event |
+| **DELETE** | `/api/events/:id/register` | User | Unregister from an event |
+| **GET** | `/api/events/my/registrations` | User | Get current user's active registrations |
+| **POST** | `/api/events` | Admin | Create a new event |
+| **PUT** | `/api/events/:id` | Admin | Edit/Update an existing event |
+| **DELETE** | `/api/events/:id` | Admin | Delete event & purge associated registrations |
+| **PATCH** | `/api/auth/make-admin/:userId` | Super Admin | Promote a user to admin status |
+| **PATCH** | `/api/auth/remove-admin/:userId` | Super Admin | Demote an admin to user status |
 
 ## Features
 - JWT authentication (signup/login/logout)
@@ -75,5 +86,5 @@ npm run dev
 ## Default Admin Setup
 The first admin must be set manually in MongoDB Atlas.
 Find your user document in the `users` collection and add:
-`"role": "admin"`
-After that, admins can promote other users via the API.
+`"role": "super_admin"`
+After that, they can promote other users via the application API.

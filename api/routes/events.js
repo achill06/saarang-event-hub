@@ -5,8 +5,17 @@ const Registration = require('../models/Registration');
 const authMiddleware = require('../middleware/authMiddleware');
 const adminMiddleware = require('../middleware/adminMiddleware')
 
+const isDateInPast = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return new Date(date) < today;
+};
+
 router.post('/', adminMiddleware, async (req, res) => {
   const { title, description, date, venue, capacity } = req.body
+  if (isDateInPast(date)) {
+    return res.status(400).json({ message: 'Cannot create events in the past.' });
+  }
   if (!title || !description || !date || !venue) {
     return res.status(400).json({ message: 'All fields are required' })
   }
@@ -20,6 +29,19 @@ router.post('/', adminMiddleware, async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
+
+router.delete('/:id', adminMiddleware, async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params.id);
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    
+    await Registration.deleteMany({ event: req.params.id });
+    
+    res.json({ message: 'Event and associated registrations deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error deleting event' });
+  }
+});
 
 router.get('/',  async (req, res) => {
     try {
@@ -84,5 +106,24 @@ router.get('/my/registrations', authMiddleware, async (req, res) => {
     }
 });
 
+router.put('/:id', adminMiddleware, async (req, res) => {
+    const { date } = req.body
+    if (date && isDateInPast(date)) {
+        return res.status(400).json({ message: 'Cannot create events in the past.' });
+    }
+    try {
+    const event = await Event.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true, runValidators: true }
+    );
+    
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    res.json(event);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error updating event' });
+    }
+});
 
 module.exports = router;
