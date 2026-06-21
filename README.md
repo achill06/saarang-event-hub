@@ -57,7 +57,7 @@ npm run dev
 # App runs on http://localhost:5173
 ```
 
-## 🛣️ API Routes
+## API Routes
 
 | Method | Route | Auth | Description |
 |--------|-------|------|-------------|
