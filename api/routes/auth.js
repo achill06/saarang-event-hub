@@ -62,7 +62,7 @@ router.patch('/make-admin/:userId', superAdminMiddleware, async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.params.userId,
       { role: 'admin' },
-      { new: true }
+      { returnDocument: 'after' }
     )
     if (!user) return res.status(404).json({ message: 'User not found' })
     res.json({ message: `${user.username} is now an admin` })
@@ -86,7 +86,7 @@ router.patch('/remove-admin/:userId', superAdminMiddleware, async (req, res) => 
     const user = await User.findByIdAndUpdate(
       req.params.userId,
       { role: 'user' },
-      { new: true }
+      { returnDocument: 'after' }
     )
     if (!user) return res.status(404).json({ message: 'User not found' })
     res.json({ message: `${user.username} is now a regular user` })

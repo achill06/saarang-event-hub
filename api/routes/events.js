@@ -115,7 +115,7 @@ router.put('/:id', adminMiddleware, async (req, res) => {
     const event = await Event.findByIdAndUpdate(
       req.params.id, 
       req.body, 
-      { new: true, runValidators: true }
+      { returnDocument: 'after' , runValidators: true }
     );
     
     if (!event) return res.status(404).json({ message: 'Event not found' });
