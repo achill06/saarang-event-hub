@@ -12,7 +12,7 @@ const isDateInPast = (date) => {
 };
 
 router.post('/', adminMiddleware, async (req, res) => {
-  const { title, description, date, venue, capacity } = req.body
+  const { title, description, date, venue, capacity, category } = req.body
   if (isDateInPast(date)) {
     return res.status(400).json({ message: 'Cannot create events in the past.' });
   }
@@ -23,7 +23,7 @@ router.post('/', adminMiddleware, async (req, res) => {
     return res.status(400).json({ message: 'Capacity must be at least 1' })
   }
   try {
-    const event = await Event.create({ title, description, date, venue, capacity })
+    const event = await Event.create({ title, description, date, venue, capacity, category })
     res.status(201).json(event)
   } catch (err) {
     res.status(500).json({ message: err.message })

@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema({
     date: { type: Date, required: true },
     venue: { type: String, required: true },
     capacity: { type: Number, default: 100 },
-    category: { type: String, required: true, default: 'Cultural' }
+    category: { type: String, enum: ['Cultural', 'Dance', 'Music', 'Lecture', 'Fine Arts', 'Literary', 'Dramatics', 'Gaming', 'Workshops', 'Proshows'], default: 'Cultural' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Event', eventSchema);
