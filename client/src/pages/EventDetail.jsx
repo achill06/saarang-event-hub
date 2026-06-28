@@ -80,6 +80,14 @@ const EventDetail = () => {
       case 'dance': return 'cat-dance';
       case 'lecture': return 'cat-lecture';
       case 'music': return 'cat-music';
+      case 'fine arts': return 'cat-finearts';
+      case 'literary': return 'cat-literary';
+      case 'dramatics': return 'cat-dramatics';
+      case 'gaming': return 'cat-gaming';
+      case 'workshops': return 'cat-workshops';
+      case 'proshows': return 'cat-proshows';
+      case 'informals': return 'cat-informals'; 
+      case 'design & digital arts': return 'cat-vfx';
       default: return 'cat-cultural';
     }
   };
