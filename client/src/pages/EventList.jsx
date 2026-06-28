@@ -40,6 +40,8 @@ const EventList = () => {
       case 'gaming': return { bar: 'bar-gaming', badge: 'cat-gaming' };
       case 'workshops': return { bar: 'bar-workshops', badge: 'cat-workshops' };
       case 'proshows': return { bar: 'bar-proshows', badge: 'cat-proshows' };
+      case 'Informals': return { bar: 'bar-informals', badge: 'cat-informals' };
+      case 'Design & Digital Arts': return { bar: 'bar-vfx', badge: 'cat-vfx' };
       default: return { bar: 'bar-crimson', badge: 'cat-cultural' };
     }
   };
@@ -73,7 +75,7 @@ const EventList = () => {
         <div className="filters">
           {[
             'All', 'Cultural', 'Dance', 'Music', 'Lecture', 
-            'Fine Arts', 'Literary', 'Dramatics', 'Gaming', 'Workshops', 'Proshows'
+            'Fine Arts', 'Literary', 'Dramatics', 'Gaming', 'Workshops', 'Proshows', 'Informals', 'Design & Digital Arts'
           ].map(f => (
             <button 
               key={f}
