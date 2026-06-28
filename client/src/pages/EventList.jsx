@@ -58,7 +58,7 @@ const EventList = () => {
           </div>
           <h1>Where Chennai<br />Comes <em>Alive.</em></h1>
           <div className="hero-rule"></div>
-          <p className="hero-sub">IIT Madras &nbsp;·&nbsp; India's Second Oldest Cultural Festival &nbsp;·&nbsp; Five Days</p>
+          <p className="hero-sub">IIT Madras &nbsp;·&nbsp; India's Largest Student-run Cultural Festival &nbsp;·&nbsp; Five Days</p>
           <div className="hero-bottom">
             <div className="hero-stats">
               <div className="hstat"><div className="n">80K</div><div className="l">Visitors</div></div>
