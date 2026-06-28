@@ -29,19 +29,19 @@ const EventList = () => {
     : events.filter(e => e.category?.toLowerCase() === filter.toLowerCase());
 
   const getCategoryStyles = (category) => {
-    const cat = category?.toLowerCase().replace(/\s+/g, '') || 'cultural';
+    const cat = category?.trim().toLowerCase() || 'cultural';
     switch (cat) {
       case 'dance': return { bar: 'bar-teal', badge: 'cat-dance' };
       case 'lecture': return { bar: 'bar-gold', badge: 'cat-lecture' };
       case 'music': return { bar: 'bar-rose', badge: 'cat-music' };
-      case 'finearts': return { bar: 'bar-finearts', badge: 'cat-finearts' };
+      case 'fine arts': return { bar: 'bar-finearts', badge: 'cat-finearts' };
       case 'literary': return { bar: 'bar-literary', badge: 'cat-literary' };
       case 'dramatics': return { bar: 'bar-dramatics', badge: 'cat-dramatics' };
       case 'gaming': return { bar: 'bar-gaming', badge: 'cat-gaming' };
       case 'workshops': return { bar: 'bar-workshops', badge: 'cat-workshops' };
       case 'proshows': return { bar: 'bar-proshows', badge: 'cat-proshows' };
-      case 'Informals': return { bar: 'bar-informals', badge: 'cat-informals' };
-      case 'Design & Digital Arts': return { bar: 'bar-vfx', badge: 'cat-vfx' };
+      case 'informals': return { bar: 'bar-informals', badge: 'cat-informals' };
+      case 'design & digital arts': return { bar: 'bar-vfx', badge: 'cat-vfx' };
       default: return { bar: 'bar-crimson', badge: 'cat-cultural' };
     }
   };
