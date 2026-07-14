@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="footer-brand">
           <img className="logo-img" src={logo} alt="Saarang" />
           <div className="logo-text">Saarang<sub>IIT Madras</sub></div>
-          <p className="footer-desc">India's second oldest cultural festival, bringing together art, music, dance, and literature since 1974.</p>
+          <p className="footer-desc">India's largest student-run cultural festival, bringing together art, music, dance, and literature since 1974.</p>
         </div>
 
         <div className="footer-links">
